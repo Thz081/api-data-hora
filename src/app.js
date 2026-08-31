@@ -28,4 +28,18 @@ app.get("/", (request, response) => {
   });
 });
 
+/**
+ * Endpoint de verificação de saúde (Health Check).
+ *
+ * Ao acessar:
+ * http://localhost:3000/health
+ *
+ * Retorna status 200 e JSON { "status": "OK" }
+ */
+app.get("/health", (req, res) => {
+  res.status(200).json({
+    status: "OK",
+  });
+});
+
 module.exports = app;
