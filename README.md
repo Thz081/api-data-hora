@@ -2,52 +2,12 @@
 
 Backend simples desenvolvido com Node.js e Express.
 
-## Funcionalidade
+## Endpoints
 
-Ao acessar a rota padrão:
+### 1. `GET /`
+Retorna a data e a hora atuais no fuso horário de Recife.
 
-```text
-GET /
-```
-
-a API retorna a data e a hora atuais no fuso horário de Recife.
-
-## Requisitos
-
-- Node.js 18 ou superior
-- npm
-
-## Como executar
-
-Abra o terminal dentro da pasta do projeto e execute:
-
-```bash
-npm install
-npm start
-```
-
-O servidor ficará disponível em:
-
-```text
-http://localhost:3000
-```
-
-## Testar no navegador
-
-Acesse:
-
-```text
-http://localhost:3000/
-```
-
-## Testar com curl
-
-```bash
-curl http://localhost:3000/
-```
-
-## Exemplo de resposta
-
+**Exemplo de resposta:**
 ```json
 {
   "mensagem": "Data e hora atuais",
@@ -57,10 +17,51 @@ curl http://localhost:3000/
 }
 ```
 
-## Executar em modo de desenvolvimento
+### 2. `GET /health`
+Retorna a verificação de saúde da aplicação.
 
-```bash
-npm run dev
+**Exemplo de resposta:**
+```json
+{
+  "status": "OK"
+}
 ```
 
-O modo de desenvolvimento reinicia o servidor automaticamente quando o arquivo é alterado.
+## Requisitos
+
+- Node.js 18 ou superior / Docker
+- npm
+
+## Como executar localmente
+
+Abra o terminal na pasta do projeto e execute:
+
+```bash
+npm install
+npm start
+```
+
+O servidor ficará disponível em `http://localhost:3000`.
+
+### Executar testes
+```bash
+npm test
+```
+
+## Executar com Docker
+
+Construir a imagem Docker:
+```bash
+docker build -t api-data-hora .
+```
+
+Iniciar o container:
+```bash
+docker run -d -p 3000:3000 --name api-data-hora api-data-hora
+```
+
+## CI/CD (GitHub Actions)
+
+O projeto possui integração contínua via GitHub Actions (`.github/workflows/ci.yml`) dividida em dois jobs:
+- **`test`**: Executa os testes automatizados com Jest e Supertest.
+- **`docker`**: Constrói a imagem Docker automaticamente após a validação dos testes (`needs: test`).
